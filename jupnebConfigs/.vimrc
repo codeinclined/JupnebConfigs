@@ -1,14 +1,5 @@
-
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2016 Jul 28
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
+" JupNeb vim configuration
+" Based on the example vim config provided in the vim package
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -79,3 +70,7 @@ py3 from powerline.vim import setup as powerline_setup
 py3 powerline_setup()
 py3 del powerline_setup
 set laststatus=2
+
+" Line numbers
+set relativenumber
+set number

@@ -1,0 +1,9 @@
+.config/fontconfig/
+.config/htop/
+.config/i3/
+.config/ranger/
+.config/termite/
+.vimrc
+.zshrc
+.compton.conf
+.xinitrc

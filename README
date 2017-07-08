@@ -1,0 +1,33 @@
+This is a set of configuration files I personally use on my Arch Linux install
+at home. Use these configuration files at your own risk, but feel free to use
+them as you wish. Also, feel free to contact the author/maintainer of this
+repository, Joshua Taylor <taylor.joshua88@gmail.com>
+
+Some configuration files are based on default configuration files or example
+files provided by the application that file is configuring. I have tried to
+make note of this as much as possible, but please let me know if I have
+neglected to do so in one of the included configuration files.
+
+Two scripts have been provided, UpdateLocalFromRepo.sh and
+UpdateRepoFromLocal.sh
+
+UpdateLocalFromRepo.sh is used to rsync all of the configuration files from
+this repository into the user's own home directory. A dry run is performed
+to warn the user about any files that would be files that would be saved to
+the user's home directory. If the user provides a userExcludes file in the
+same directory as this script, then the script will use all of the patterns
+from that file for excluding scripts the user does not want. Please reference
+repoExcludes or the rsync documentation for more information on the format
+of rsync exclusion files.
+
+UpdateRepoFromLocal.sh is the reverse operation of UpdateLocalFromRepo.sh.
+This script will take configuration files from the user's own filesystem and
+use rsync to update those found in the current git workspace. This script
+also accepts an optional userExcludes file if it exists in the same directory.
+This is a convenience script which may clobber your workspace if you are not
+paying attention. I will accept pull requests, but I will not accept them if
+you have clobbered your entire workspace before committing. If the config
+file already exists in the repo, it is likely easiest to simply overwrite that
+file in your git workspace before committing rather than running this script.
+
+- Joshua Taylor <taylor.joshua88@gmail.com>
