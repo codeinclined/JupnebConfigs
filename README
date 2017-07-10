@@ -13,12 +13,11 @@ UpdateRepoFromLocal.sh
 
 UpdateLocalFromRepo.sh is used to rsync all of the configuration files from
 this repository into the user's own home directory. A dry run is performed
-to warn the user about any files that would be files that would be saved to
-the user's home directory. If the user provides a userExcludes file in the
-same directory as this script, then the script will use all of the patterns
-from that file for excluding scripts the user does not want. Please reference
-repoExcludes or the rsync documentation for more information on the format
-of rsync exclusion files.
+to warn the user about any files that would be saved to the user's home 
+directory. If the user provides a userExcludes file in the same directory as
+this script, then the script will use all of the patterns from that file for
+excluding configs the user does not want. Please reference repoExcludes or the
+rsync documentation for more information on the format of rsync exclusion files.
 
 UpdateRepoFromLocal.sh is the reverse operation of UpdateLocalFromRepo.sh.
 This script will take configuration files from the user's own filesystem and
