@@ -1,4 +1,4 @@
 [options]
-font = Inconsolata 11 
+font = Liberation Mono 10 
 [colors]
 background = rgba(33, 33, 33, 0.8)

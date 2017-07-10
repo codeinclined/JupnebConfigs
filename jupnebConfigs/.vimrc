@@ -65,6 +65,20 @@ command! Ninja !ninja -C build
 " Support multiple buffers without warnings
 set hidden
 
+" Expand tabs to two spaces
+set tabstop=2 shiftwidth=2 expandtab
+
+" Better colors in the console
+set termguicolors
+
+" Use the gruvbox theme
+let g:gruvbox_italic=1
+"let g:gruvbox_improved_strings=1
+"let g:gruvbox_improved_warnings=1
+let g:gruvbox_contrast_dark='medium'
+set bg=dark
+colorscheme gruvbox
+
 " Powerline
 py3 from powerline.vim import setup as powerline_setup
 py3 powerline_setup()
@@ -74,3 +88,10 @@ set laststatus=2
 " Line numbers
 set relativenumber
 set number
+
+" Automatically call clang-format when a C/C++ file is saved
+function! Formatonsave()
+  let l:formatdiff = 1
+  pyf /usr/share/clang/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
