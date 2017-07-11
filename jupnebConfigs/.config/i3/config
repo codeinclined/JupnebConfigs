@@ -141,6 +141,8 @@ bindsym $mod+Shift+o resize grow width 10 px or 10 ppt
 bindsym $mod+r exec $term -e ranger
 # start htop
 bindsym $mod+i exec $term -e htop
+# start qutebrowser
+bindsym $mod+q exec qutebrowser
 
 ##############################################################################
 # Media Hotkeys
@@ -168,9 +170,9 @@ bar {
 ###############################################################################
 # Startup tasks
 ###############################################################################
-#hide_edge_borders both
-#for_window [class="^.*"] border pixel 0
-#gaps inner 15
-#gaps outer 15
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
+gaps inner 15
+gaps outer 15
 
 exec_always --no-startup-id feh --bg-scale ~/.fehwallpaper

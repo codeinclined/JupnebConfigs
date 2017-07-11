@@ -68,16 +68,18 @@ set hidden
 " Expand tabs to two spaces
 set tabstop=2 shiftwidth=2 expandtab
 
-" Better colors in the console
-set termguicolors
 
 " Use the gruvbox theme
 let g:gruvbox_italic=1
 "let g:gruvbox_improved_strings=1
 "let g:gruvbox_improved_warnings=1
-let g:gruvbox_contrast_dark='medium'
+let g:gruvbox_contrast_dark='hard'
 set bg=dark
 colorscheme gruvbox
+hi Normal guibg=NONE ctermbg=NONE
+
+" Better colors in the console
+set termguicolors
 
 " Powerline
 py3 from powerline.vim import setup as powerline_setup
