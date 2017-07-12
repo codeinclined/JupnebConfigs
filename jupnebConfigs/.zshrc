@@ -1,8 +1,5 @@
 # JupNeb zsh configuration
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
@@ -13,7 +10,7 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 
 source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
 
-# Powerline
-#if [[ -r /usr/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh ]]; then
-#  source /usr/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
-#fi
+# LS_COLORS. This sets dircolors to the contents of the ~/.dircolors file.
+# This can be found at the following URL. Comment out the eval to disable this.
+# https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS
+eval $( dircolors -b $HOME/.dircolors )

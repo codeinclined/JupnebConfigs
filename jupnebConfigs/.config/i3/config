@@ -8,8 +8,12 @@
 #
 # $term sets the terminal this file uses to launch terminal applications
 #
-# feh is used for setting the background. Copy or symlink an image to
-# ~/.fehwallpaper to set the wallpaper you want and reload i3 to have it set.
+# $bgcmd is set to a wallpaper setter. The default is to pick random wallpapers
+# for each monitor from ~/Downloads/Wallpapers when i3 starts up. $mod+Shift+w
+# is bound to change these wallpapers using $bgcmd. I have not specified
+# a recursive option for feh, but if I ever start organizing my wallpapers then
+# I may look into this (probably not -- I'd rather pick a specific subdirectory
+# so as to have psuedo wallpaper themes)
 ###############################################################################
 
 # Set the default mod key (Windows key by default)
@@ -129,10 +133,17 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize windows with $mod+ row above hjkl
-bindsym $mod+Shift+y resize shrink width 10 px or 10 ppt
-bindsym $mod+Shift+u resize shrink height 10 px or 10 ppt
-bindsym $mod+Shift+i resize grow height 10 px or 10 ppt
-bindsym $mod+Shift+o resize grow width 10 px or 10 ppt 
+bindsym $mod+Shift+y resize shrink width 1 px or 1 ppt
+bindsym $mod+Shift+u resize shrink height 1 px or 1 ppt
+bindsym $mod+Shift+i resize grow height 1 px or 1 ppt
+bindsym $mod+Shift+o resize grow width 1 px or 1 ppt 
+
+##############################################################################
+# Wallpaper
+##############################################################################
+set $bgcmd feh --bg-scale --no-fehbg -zq ~/Downloads/Wallpapers/
+bindsym $mod+Shift+w exec $bgcmd
+exec --no-startup-id $bgcmd
 
 ##############################################################################
 # Application launchers
@@ -175,4 +186,3 @@ for_window [class="^.*"] border pixel 0
 gaps inner 15
 gaps outer 15
 
-exec_always --no-startup-id feh --bg-scale ~/.fehwallpaper
