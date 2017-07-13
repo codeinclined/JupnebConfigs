@@ -14,6 +14,9 @@
 # a recursive option for feh, but if I ever start organizing my wallpapers then
 # I may look into this (probably not -- I'd rather pick a specific subdirectory
 # so as to have psuedo wallpaper themes)
+#
+# Some of this configuration file has been inspired by Luke Smith's videos
+# on YouTube. You can find him at http://lukesmith.xyz
 ###############################################################################
 
 # Set the default mod key (Windows key by default)
@@ -88,8 +91,11 @@ bindsym $mod+a focus parent
 ###############################################################################
 # Workspaces
 ############################################################################### 
+# Output names (for assigning workspaces to screen outputs
+set $screen0 DP-4
+set $screen1 HDMI-0
 
-# Workspace names
+# Workspace names and screen outputs
 set $ws1  "1 " 
 set $ws2  "2 "
 set $ws3  "3 "
@@ -99,8 +105,48 @@ set $ws6  "6"
 set $ws7  "7"
 set $ws8  "8 " 
 set $ws9  "9 "
+workspace $ws9 output $screen1
 set $ws10 "10 "
 
+###############################################################################
+# Application configurations
+###############################################################################
+# Spotify
+for_window [class="Spotify"] move container to workspace $ws9 
+
+# GIMP
+bindsym $mod+g exec --no-startup-id gimp; workspace $ws4
+for_window [title="GIMP Startup"] move workspace $ws4
+
+# ranger
+bindsym $mod+r exec $term -e ranger
+
+# htop
+bindsym $mod+i exec $term -e htop
+
+# firefox
+bindsym $mod+b exec firefox
+bindsym $mod+Shift+b exec firefox -private-window
+
+###############################################################################
+# systemctl menu
+###############################################################################
+set $systemctl_menu systemctl: [s]uspend [r]eboot [p]oweroff [h]ibernate
+bindsym $mod+Shift+s mode "$systemctl_menu"
+
+mode "$systemctl_menu" {
+  bindsym s exec systemctl suspend; mode "default"
+  bindsym h exec systemctl hibernate; mode "default"
+  bindsym r exec systemctl reboot
+  bindsym p exec systemctl poweroff
+
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+}
+
+###############################################################################
+# Windows / containers
+###############################################################################
 # Keybindings for workspaces 1-10
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -145,15 +191,6 @@ set $bgcmd feh --bg-scale --no-fehbg -zq ~/Downloads/Wallpapers/
 bindsym $mod+Shift+w exec $bgcmd
 exec --no-startup-id $bgcmd
 
-##############################################################################
-# Application launchers
-##############################################################################
-# start ranger
-bindsym $mod+r exec $term -e ranger
-# start htop
-bindsym $mod+i exec $term -e htop
-# start qutebrowser
-bindsym $mod+q exec qutebrowser
 
 ##############################################################################
 # Media Hotkeys
@@ -178,8 +215,12 @@ bar {
 	position top
 }
 
+##############################################################################
+# Workspace assignments
+##############################################################################
+
 ###############################################################################
-# Startup tasks
+# Gaps-specific settings
 ###############################################################################
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
