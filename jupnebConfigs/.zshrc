@@ -14,3 +14,11 @@ source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
 # This can be found at the following URL. Comment out the eval to disable this.
 # https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS
 eval $( dircolors -b $HOME/.dircolors )
+alias ls='ls --color --human-readable --group-directories-first --classify'
+alias grep='grep --color'
+alias pacman='pacman --color auto'
+alias sudo='sudo '
+
+# Make sure we're in vim mode; change to -e if you prefer Emacs input
+bindkey -v
+

@@ -97,3 +97,11 @@ function! Formatonsave()
   pyf /usr/share/clang/clang-format.py
 endfunction
 autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
+
+" Automatically open latex files using a saved i3 layout on workspace 7 with a
+" preview window using mupdf. Latex files are compiled auotmatically upon
+" saving their vim buffer, and the 'r' key is sent to mupdf to signal it to
+" reload the pdf file with newly compiled changes. Comment these out if you
+" are not using i3 (or are using vim through a plain SSH terminal)
+autocmd BufWritePost *.tex !pdflatex % --output-directory=%:p:h; xdotool search --class "mupdf" key r
+autocmd BufReadPost *.tex silent !i3-msg "move container to workspace 7 ; workspace 7 ; append_layout ~/.config/i3/latex-7.json"; mupdf %:r.pdf &

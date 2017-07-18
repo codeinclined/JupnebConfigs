@@ -102,7 +102,7 @@ set $ws3  "3 "
 set $ws4  "4 "
 set $ws5  "5 "
 set $ws6  "6"
-set $ws7  "7"
+set $ws7  "7 "
 set $ws8  "8 " 
 set $ws9  "9 "
 workspace $ws9 output $screen1
@@ -127,6 +127,9 @@ bindsym $mod+i exec $term -e htop
 # firefox
 bindsym $mod+b exec firefox
 bindsym $mod+Shift+b exec firefox -private-window
+
+# latex
+#bindsym $mod+p workspace $ws7; append_layout ~/.config/i3/latex-7.json; exec $term -d ~/Documents
 
 ###############################################################################
 # systemctl menu
@@ -215,10 +218,6 @@ bar {
 	position top
 }
 
-##############################################################################
-# Workspace assignments
-##############################################################################
-
 ###############################################################################
 # Gaps-specific settings
 ###############################################################################
@@ -227,3 +226,5 @@ for_window [class="^.*"] border pixel 0
 gaps inner 15
 gaps outer 15
 
+bindsym $mod+Control+f gaps inner all set 0; gaps outer all set 0;
+bindsym $mod+Shift+Control+f gaps inner all set 15; gaps outer all set 15;
