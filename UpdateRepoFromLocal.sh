@@ -26,7 +26,7 @@ else
 	USER_EXCLUDES=""
 fi
 
-RSYNC_ARGS=("-aum" "--files-from=$CONFIGS" "--exclude-from=$EXCLUDES"
+RSYNC_ARGS=("-aumL" "--files-from=$CONFIGS" "--exclude-from=$EXCLUDES"
 $USER_EXCLUDES "--delete" "$HOME" "$DEST")
 
 # Display the files that will be updated and confirm the update with the user

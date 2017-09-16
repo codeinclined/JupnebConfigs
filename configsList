@@ -1,9 +1,9 @@
-.config/fontconfig/
-.config/htop/
 .config/i3/
 .config/ranger/
-.config/termite/
-.vimrc
-.zshrc
+.config/polybar/
+.config/rofi/
+.fonts.conf
+.bashrc
 .compton.conf
 .xinitrc
+.Xdefaults

@@ -1,0 +1,11 @@
+
+rofi.font:		DejaVu Sans Mono 12
+#rofi.terminal:		urxvt
+rofi.matching:		normal
+rofi.separator-style:	solid
+
+rofi.color-enabled	true
+rofi.color-window:	#CC202020, #33DDDDDD, #66AAAAAA
+rofi.fake-transparency	true
+rofi.fake-background	background
+#rofi.opacity:		"10"

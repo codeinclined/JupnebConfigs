@@ -1,3 +1,4 @@
+# vim: set filetype=sh :
 ###############################################################################
 # Jupneb i3 Config
 ###############################################################################
@@ -24,21 +25,25 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Inconsolata 11
+font pango:DejaVu Sans Mono 11
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # define the default terminal
-set $term termite
+set $term urxvt
 # start a terminal
 bindsym $mod+Return exec $term
 
+# define the default editor command
+set $editor "kak -c kak-i3"
+# start the default editor
+bindsym $mod+e exec $term -e $editor
+# start kakoune with a specific session
+bindsym $mod+Shift+e exec $term -e ~/.config/i3/kak-session-chooser.sh
+
 # kill focused window
 bindsym $mod+Shift+q kill
-
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
 
 # change focus
 bindsym $mod+h focus left
@@ -65,16 +70,31 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # toggle split direction
-bindsym $mod+c split vertical
-bindsym $mod+v split horizontal
+#bindsym $mod+c split vertical
+#bindsym $mod+v split horizontal
 
 # enter fullscreen mode for the focused container
 bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
+#bindsym $mod+e layout toggle split
+
+set $container_menu container layout: [s]tacking [t]iled [f]loating-toggle fullscree[n] [h]oriz-split [v]ert-split
+bindsym $mod+c mode "$container_menu"
+
+mode "$container_menu" {
+  bindsym s layout stacking; mode "default"
+  bindsym t layout tabbed; mode "default"
+  bindsym f floating toggle; mode "default"
+  bindsym n fullscreen toggle; mode "default"
+  bindsym h split horizontal; mode "default"
+  bindsym v split vertical; mode "default"
+
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+}
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -90,29 +110,40 @@ bindsym $mod+a focus parent
 
 ###############################################################################
 # Workspaces
-############################################################################### 
+###############################################################################
 # Output names (for assigning workspaces to screen outputs
 set $screen0 DP-4
 set $screen1 HDMI-0
 
 # Workspace names and screen outputs
-set $ws1  "1 " 
-set $ws2  "2 "
-set $ws3  "3 "
-set $ws4  "4 "
-set $ws5  "5 "
+#set $ws1  "1 "
+#set $ws2  "2 "
+#set $ws3  "3 "
+#set $ws4  "4 "
+#set $ws5  "5 "
+#set $ws6  "6"
+#set $ws7  "7 "
+#set $ws8  "8 "
+#set $ws9  "9 "
+#workspace $ws9 output $screen1
+#set $ws10 "10 "
+
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
 set $ws6  "6"
-set $ws7  "7 "
-set $ws8  "8 " 
-set $ws9  "9 "
-workspace $ws9 output $screen1
-set $ws10 "10 "
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
 
 ###############################################################################
 # Application configurations
 ###############################################################################
 # Spotify
-for_window [class="Spotify"] move container to workspace $ws9 
+for_window [class="Spotify"] move container to workspace $ws9
 
 # GIMP
 bindsym $mod+g exec --no-startup-id gimp; workspace $ws4
@@ -128,24 +159,39 @@ bindsym $mod+i exec $term -e htop
 bindsym $mod+b exec firefox
 bindsym $mod+Shift+b exec firefox -private-window
 
+# kakoune
+exec kak -d -s "kak-i3"
+
 # latex
 #bindsym $mod+p workspace $ws7; append_layout ~/.config/i3/latex-7.json; exec $term -d ~/Documents
+
+# emacs
+#bindsym $mod+e exec emacs
+
+################################################################################
+# Rofi menus
+################################################################################
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+Control+d exec rofi -show run
+bindsym $mod+Shift+d exec rofi -show window
+bindsym $mod+p exec ~/.config/i3/lpass-menu.sh --hide-success
+bindsym $mod+Shift+s exec ~/.config/i3/systemd-menu.sh
 
 ###############################################################################
 # systemctl menu
 ###############################################################################
-set $systemctl_menu systemctl: [s]uspend [r]eboot [p]oweroff [h]ibernate
-bindsym $mod+Shift+s mode "$systemctl_menu"
+#set $systemctl_menu systemctl: [s]uspend [r]eboot [p]oweroff [h]ibernate
+#bindsym $mod+Shift+s mode "$systemctl_menu"
 
-mode "$systemctl_menu" {
-  bindsym s exec systemctl suspend; mode "default"
-  bindsym h exec systemctl hibernate; mode "default"
-  bindsym r exec systemctl reboot
-  bindsym p exec systemctl poweroff
-
-  bindsym Escape mode "default"
-  bindsym Return mode "default"
-}
+#mode "$systemctl_menu" {
+#  bindsym s exec systemctl suspend; mode "default"
+#  bindsym h exec systemctl hibernate; mode "default"
+#  bindsym r exec systemctl reboot
+#  bindsym p exec systemctl poweroff
+#
+#  bindsym Escape mode "default"
+#  bindsym Return mode "default"
+#}
 
 ###############################################################################
 # Windows / containers
@@ -179,21 +225,20 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
+bindsym $mod+Shift+BackSpace exit
 # resize windows with $mod+ row above hjkl
-bindsym $mod+Shift+y resize shrink width 1 px or 1 ppt
-bindsym $mod+Shift+u resize shrink height 1 px or 1 ppt
-bindsym $mod+Shift+i resize grow height 1 px or 1 ppt
-bindsym $mod+Shift+o resize grow width 1 px or 1 ppt 
+set $resizeAmount 5 px or 5 ppt
+bindsym $mod+Shift+y resize shrink width $resizeAmount
+bindsym $mod+Shift+u resize shrink height $resizeAmount
+bindsym $mod+Shift+i resize grow height $resizeAmount
+bindsym $mod+Shift+o resize grow width $resizeAmount
 
 ##############################################################################
 # Wallpaper
 ##############################################################################
-set $bgcmd feh --bg-scale --no-fehbg -zq ~/Downloads/Wallpapers/
+set $bgcmd wal -t -a "85" -i ~/Downloads/Wallpapers
 bindsym $mod+Shift+w exec $bgcmd
-exec --no-startup-id $bgcmd
-
+exec $bgcmd
 
 ##############################################################################
 # Media Hotkeys
@@ -206,17 +251,20 @@ bindsym XF86AudioNext  exec playerctl next
 bindsym XF86AudioPrev  exec playerctl previous
 
 # Mixer bindings
-bindsym XF86AudioRaiseVolume exec pamixer -i 1 
+bindsym XF86AudioRaiseVolume exec pamixer -i 1
 bindsym XF86AudioLowerVolume exec pamixer -d 1
 bindsym XF86AudioMute        exec pamixer -t
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-#        status_command i3blocks
-	status_command bumblebee-status -m pasink pasource cpu sensors memory traffic disk kernel pacman weather datetime -p disk.path=/ weather.interval=15 weather.unit=imperial weather.apikey=3120244849fbca7744f9d68150d03517 datetime.format="%a, %b %d, %Y at %I:%M %p" -t gruvbox-powerline
-	position top
-}
+#bar {
+##        status_command i3blocks
+#	status_command bumblebee-status -m pasink pasource cpu sensors memory traffic disk kernel pacman weather datetime -p disk.path=/ weather.interval=15 weather.unit=imperial weather.apikey=3120244849fbca7744f9d68150d03517 datetime.format="%a, %b %d, %Y at %I:%M %p" -t gruvbox-powerline
+#	position top
+#}
+
+# Start polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 ###############################################################################
 # Gaps-specific settings
@@ -224,7 +272,7 @@ bar {
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 gaps inner 15
-gaps outer 15
+gaps outer 11
 
 bindsym $mod+Control+f gaps inner all set 0; gaps outer all set 0;
 bindsym $mod+Shift+Control+f gaps inner all set 15; gaps outer all set 15;
